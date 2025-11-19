@@ -30,3 +30,8 @@ A fully-featured VAT (Value Added Tax) calculator with a modern interface based 
 - **CSS3** - Modern styling with CSS variables, Grid, Flexbox
 - **JavaScript (ES6+)** - Vanilla JS, no frameworks
 - **Google Fonts** - Inter font family
+
+## 🌐 Деплой
+
+Сайт автоматически публикуется на GitHub Pages:
+[**https://rusik09.github.io/vat-calc/**](https://rusik09.github.io/vat-calc/)

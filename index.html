@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Калькулятор НДС Онлайн - Бесплатный Расчет НДС 20%, 10%, 0%</title>
+    <meta name="description" content="✓ Бесплатный калькулятор НДС онлайн. Быстро начислите или выделите НДС 20%, 10%, 0%. Точный расчет налога на добавленную стоимость за секунды. Простой и удобный интерфейс.">
+    <meta name="keywords" content="калькулятор НДС, расчет НДС, выделить НДС, начислить НДС, НДС онлайн, калькулятор налогов, НДС 20 процентов, калькулятор НДС бесплатно">
+    <meta name="author" content="Калькулятор НДС">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.ru">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.ru">
+    <meta property="og:title" content="Калькулятор НДС Онлайн - Бесплатный Расчет НДС">
+    <meta property="og:description" content="Быстрый и точный расчет НДС. Начислите или выделите НДС 20%, 10%, 0%. Бесплатный онлайн инструмент.">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Калькулятор НДС",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "description": "Бесплатный онлайн калькулятор для быстрого и точного расчета НДС",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "RUB"
+      },
+      "featureList": "Начисление НДС, Выделение НДС, Расчет с НДС 20%, 10%, 0%"
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Gradient -->
+    <div class="background-gradient"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1 class="hero-title">Калькулятор НДС Онлайн</h1>
+            <p class="hero-subtitle">Быстрый и точный расчет НДС с помощью современного удобного инструмента</p>
+        </header>
+
+        <!-- Calculator Card -->
+        <main class="calculator-card">
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" data-mode="add" aria-label="Режим начисления НДС">
+                    <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Начислить НДС
+                </button>
+                <button class="mode-btn" data-mode="subtract" aria-label="Режим выделения НДС">
+                    <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M5 12h14"/>
+                    </svg>
+                    Выделить НДС
+                </button>
+            </div>
+
+            <!-- Calculator Form -->
+            <form class="calculator-form" id="vatForm" autocomplete="off">
+                <!-- Amount Input -->
+                <div class="form-group">
+                    <label for="amount" class="form-label">Сумма</label>
+                    <div class="input-wrapper">
+                        <span class="currency-symbol" aria-hidden="true">₽</span>
+                        <input 
+                            type="text" 
+                            id="amount" 
+                            class="form-input" 
+                            placeholder="0.00"
+                            autocomplete="off"
+                            aria-describedby="amount-description"
+                        >
+                    </div>
+                    <span id="amount-description" class="visually-hidden">Введите сумму для расчета НДС</span>
+                </div>
+
+                <!-- VAT Rate Selection -->
+                <div class="form-group">
+                    <label for="vatRate" class="form-label">Ставка НДС</label>
+                    <div class="vat-rate-container">
+                        <div class="preset-rates">
+                            <button type="button" class="rate-btn active" data-rate="20" aria-label="НДС 20 процентов">20%</button>
+                            <button type="button" class="rate-btn" data-rate="10" aria-label="НДС 10 процентов">10%</button>
+                            <button type="button" class="rate-btn" data-rate="0" aria-label="НДС 0 процентов">0%</button>
+                        </div>
+                        <div class="custom-rate">
+                            <input 
+                                type="number" 
+                                id="customRate" 
+                                class="form-input custom-rate-input" 
+                                placeholder="Другая"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                aria-label="Пользовательская ставка НДС"
+                            >
+                            <span class="percent-symbol" aria-hidden="true">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Display -->
+                <div class="results" id="results" role="region" aria-live="polite" aria-label="Результаты расчета">
+                    <div class="result-item">
+                        <span class="result-label" id="originalLabel">Сумма без НДС</span>
+                        <span class="result-value" id="originalAmount">₽0.00</span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span class="result-label">Сумма НДС</span>
+                        <span class="result-value" id="vatAmount">₽0.00</span>
+                    </div>
+                    <div class="result-item total">
+                        <span class="result-label" id="finalLabel">Сумма с НДС</span>
+                        <span class="result-value" id="finalAmount">₽0.00</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-secondary" id="clearBtn" aria-label="Очистить калькулятор">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                        </svg>
+                        Очистить
+                    </button>
+                    <button type="button" class="btn btn-primary" id="copyBtn" aria-label="Копировать результаты расчета">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                        </svg>
+                        <span id="copyText">Копировать результат</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Dark Mode Toggle -->
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Переключить темную тему">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"/>
+                    <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+            </button>
+        </main>
+
+        <!-- How to Use Section -->
+        <section class="how-to-use">
+            <h2 class="section-title">Как пользоваться калькулятором НДС</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Выберите режим расчета</h3>
+                        <p>Определите, хотите ли вы <strong>начислить НДС</strong> на сумму (добавить налог к чистой стоимости) или <strong>выделить НДС</strong> из суммы (извлечь налог из итоговой стоимости с НДС).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Введите сумму</h3>
+                        <p>Укажите сумму в рублях в поле калькулятора. Расчет происходит автоматически в режиме реального времени по мере ввода.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Выберите ставку НДС</h3>
+                        <p>Выберите одну из стандартных ставок НДС в России (20%, 10%, 0%) или введите свою пользовательскую ставку в соответствующее поле.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Получите результат</h3>
+                        <p>Мгновенно увидите детальный расчет с разбивкой на сумму без НДС, сумму НДС и итоговую сумму. Скопируйте результат при необходимости.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is VAT Section -->
+        <section class="content-section">
+            <h2 class="section-title">Что такое НДС?</h2>
+            <div class="content-card">
+                <p><strong>НДС (Налог на добавленную стоимость)</strong> — это косвенный налог, который взимается с добавленной стоимости товаров и услуг на каждом этапе производства и реализации. В России действуют следующие основные ставки НДС:</p>
+
+                <ul class="vat-rates-list">
+                    <li><strong>20%</strong> — основная ставка НДС, применяется к большинству товаров и услуг</li>
+                    <li><strong>10%</strong> — льготная ставка для социально значимых товаров (продукты питания, детские товары, медицинские изделия, печатные издания)</li>
+                    <li><strong>0%</strong> — нулевая ставка применяется при экспорте товаров, международных перевозках и некоторых других операциях</li>
+                </ul>
+
+                <p>Наш калькулятор поможет вам быстро рассчитать НДС для любой из этих ставок, а также для нестандартных значений.</p>
+            </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section class="content-section">
+            <h2 class="section-title">Примеры расчета НДС</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3>Начисление НДС 20%</h3>
+                    <p><strong>Задача:</strong> Товар стоит 10 000 ₽ без НДС. Нужно узнать цену с НДС.</p>
+                    <p><strong>Решение:</strong></p>
+                    <ul>
+                        <li>Сумма НДС: 10 000 × 20% = 2 000 ₽</li>
+                        <li>Итого с НДС: 10 000 + 2 000 = 12 000 ₽</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Выделение НДС 20%</h3>
+                    <p><strong>Задача:</strong> Цена товара с НДС составляет 12 000 ₽. Нужно узнать сумму без НДС.</p>
+                    <p><strong>Решение:</strong></p>
+                    <ul>
+                        <li>Сумма без НДС: 12 000 / 1,20 = 10 000 ₽</li>
+                        <li>Сумма НДС: 12 000 - 10 000 = 2 000 ₽</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h3>Начисление НДС 10%</h3>
+                    <p><strong>Задача:</strong> Продукт питания стоит 5 000 ₽ без НДС.</p>
+                    <p><strong>Решение:</strong></p>
+                    <ul>
+                        <li>Сумма НДС: 5 000 × 10% = 500 ₽</li>
+                        <li>Итого с НДС: 5 000 + 500 = 5 500 ₽</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="content-section faq-section">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Как начислить НДС на сумму?</h3>
+                    <p>Чтобы начислить НДС, умножьте сумму без налога на ставку НДС (например, 0,20 для 20%) и прибавьте результат к исходной сумме. Формула: Сумма с НДС = Сумма × (1 + Ставка НДС).</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Как выделить НДС из суммы?</h3>
+                    <p>Чтобы выделить НДС из общей суммы, разделите сумму с НДС на (1 + ставка НДС). Формула для НДС 20%: Сумма без НДС = Сумма с НДС / 1,20.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Какая сейчас ставка НДС в России?</h3>
+                    <p>Основная ставка НДС в России составляет 20%. Также действуют льготные ставки 10% (для социально значимых товаров) и 0% (для экспортных операций).</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Можно ли использовать калькулятор для других ставок НДС?</h3>
+                    <p>Да, наш калькулятор поддерживает любые ставки НДС. Вы можете ввести пользовательское значение в поле "Другая ставка" для расчета с нестандартными процентами.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Бесплатный ли этот калькулятор?</h3>
+                    <p>Да, наш калькулятор НДС полностью бесплатный и не требует регистрации. Вы можете использовать его неограниченное количество раз.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Сохраняются ли мои расчеты?</h3>
+                    <p>Все расчеты выполняются локально в вашем браузере. Мы не сохраняем и не передаем ваши данные. Для сохранения результатов используйте кнопку "Копировать результат".</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- When to Use Section -->
+        <section class="content-section">
+            <h2 class="section-title">Когда использовать разные режимы</h2>
+            <div class="modes-comparison">
+                <div class="mode-card">
+                    <h3>Начисление НДС</h3>
+                    <p>Используйте этот режим, когда:</p>
+                    <ul>
+                        <li>У вас есть цена товара/услуги без НДС</li>
+                        <li>Нужно рассчитать итоговую стоимость для клиента</li>
+                        <li>Формируете прайс-лист с НДС</li>
+                        <li>Готовите коммерческое предложение</li>
+                    </ul>
+                </div>
+
+                <div class="mode-card">
+                    <h3>Выделение НДС</h3>
+                    <p>Используйте этот режим, когда:</p>
+                    <ul>
+                        <li>У вас есть итоговая цена с НДС</li>
+                        <li>Нужно узнать, сколько налога включено в цену</li>
+                        <li>Проверяете правильность выставленного счета</li>
+                        <li>Готовите налоговую отчетность</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Калькулятор НДС. Все права защищены.</p>
+            <p class="footer-note">Бесплатный онлайн инструмент для расчета налога на добавленную стоимость</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
